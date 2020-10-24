@@ -19,15 +19,9 @@ public class Morador{
     }
 
   
-    public void listarMoradores(String nome,String rg, String numeroApartamento){
-        //listar todos os moradores
-        
-
-    }
-
-
-    public void incluiMorador(String nome){
-        //procurara para ver se ja existe, se nao, cria e adiciona
+    public String toString(){
+        String msg= " "+nome+" - "+rg+" - "+numeroApartamento;
+        return msg;
     }
 
 }
