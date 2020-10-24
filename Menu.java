@@ -5,6 +5,7 @@ public class Menu{
 
     private static  ArrayList<Morador> listaMoradores = new ArrayList<Morador>();
     private static ArrayList<Operador> listaOperadores = new ArrayList<>();
+    private static Operador operadorAtual = new Operador("", "");
     public static void menu(){
         System.out.println("Escolha uma opcao");
         System.out.println("0. Fim");
@@ -54,7 +55,8 @@ public class Menu{
         opcao = entrada.nextInt();
         entrada.nextLine();
         switch(opcao){
-            case 1: //escolheOperador();
+            case 1: 
+                operadorAtual = escolherOperador(entrada);
                 break;
 
             case 2: 
@@ -97,10 +99,37 @@ public class Menu{
         }
     } while(opcao != 0);
 }
-    private static void incluirOperador(Scanner scanner){
+    private static Operador escolherOperador(Scanner scanner){
+        String nome = "GCS";
+        do{
+            if(nome.isBlank()){
+                System.out.println("\fOperação inválido "); 
+            }
+            System.out.println("Qual o nome completo do operador desejado: ");
+            nome = scanner.nextLine();
+        }while(nome.isBlank());
 
-        System.out.println("informe o nome completo do operador: ");
-        String nome = scanner.nextLine();
+        if(operadorAtual.getNome().equalsIgnoreCase(nome)){
+            System.out.print("Esse operador já está selecionado");
+            return operadorAtual;
+        }
+        for (Operador operador : listaOperadores) {
+            if(operador.getNome().equalsIgnoreCase(nome)){
+                return operador;
+            }
+        }
+        System.out.println("Este Operador não encontrado");
+        return operadorAtual;
+    }
+    private static void incluirOperador(Scanner scanner){
+        String nome = "GCS";
+        do{
+            if(nome.isBlank()){
+                System.out.println("\fOperação inválido "); 
+            }
+            System.out.println("Informe o nome completo do operador: ");
+            nome = scanner.nextLine();
+        }while(nome.isBlank());
 
         for (Operador operador : listaOperadores) {
             if(operador.getNome().equalsIgnoreCase(nome)){
@@ -110,7 +139,6 @@ public class Menu{
         }
         String iniciais = pegaIniciais(nome.split(" "));
         listaOperadores.add(new Operador(nome,iniciais));
-        System.out.println("Operador "+nome+" adicionado ao sistema "+ "\n");
     }
     private static String pegaIniciais(String[] nomeSemEspaco){
         String iniciais = "";

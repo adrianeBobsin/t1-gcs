@@ -41,11 +41,6 @@ public class Operador{
     }
 
 
-    public void incluiOperador(String nome,String iniciais){
-        //procurara para ver se ja existe, se nao, cria e adiciona
-    }
-
-
     //public void geraRelatorio({
         //gera o relatorio de todas as entregas, inclusive as que nao foram retiradas
     //}
