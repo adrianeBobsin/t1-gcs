@@ -4,6 +4,8 @@ import java.util.Scanner;
 public class Menu{
 
     private static  ArrayList<Morador> listaMoradores = new ArrayList<Morador>();
+    private static ArrayList<Operador> listaOperadores = new ArrayList<>();
+    private static Operador operadorAtual = new Operador("", "");
     public static void menu(){
         System.out.println("Escolha uma opcao");
         System.out.println("0. Fim");
@@ -47,17 +49,18 @@ public class Menu{
         int opcao;
         Scanner entrada = new Scanner(System.in);
     
-        do{
-            menu();
-            opcao = entrada.nextInt();
-        
-            switch(opcao){
-            case 1: //escolheOperador();
-                    
+
+    do{
+        menu();
+        opcao = entrada.nextInt();
+        entrada.nextLine();
+        switch(opcao){
+            case 1: 
+                operadorAtual = escolherOperador(entrada);
                 break;
-                
-            case 2: //incluirOperador();
-                    
+
+            case 2: 
+                incluirOperador(entrada);        
                 break;
             
             case 3: //registraEntrega();               
@@ -89,11 +92,59 @@ public class Menu{
 
             case 9: //gerarRelatorio();
 
-                break;     
-            
-            default:
-                System.out.println("Opção inválida.");
+            break;     
+        
+        default:
+            System.out.println("Opção inválida.");
+        }
+    } while(opcao != 0);
+}
+    private static Operador escolherOperador(Scanner scanner){
+        String nome = "GCS";
+        do{
+            if(nome.isBlank()){
+                System.out.println("\fOperação inválido "); 
             }
-        } while(opcao != 0);
+            System.out.println("Qual o nome completo do operador desejado: ");
+            nome = scanner.nextLine();
+        }while(nome.isBlank());
+
+        if(operadorAtual.getNome().equalsIgnoreCase(nome)){
+            System.out.print("Esse operador já está selecionado");
+            return operadorAtual;
+        }
+        for (Operador operador : listaOperadores) {
+            if(operador.getNome().equalsIgnoreCase(nome)){
+                return operador;
+            }
+        }
+        System.out.println("Este Operador não encontrado");
+        return operadorAtual;
+    }
+    private static void incluirOperador(Scanner scanner){
+        String nome = "GCS";
+        do{
+            if(nome.isBlank()){
+                System.out.println("\fOperação inválido "); 
+            }
+            System.out.println("Informe o nome completo do operador: ");
+            nome = scanner.nextLine();
+        }while(nome.isBlank());
+
+        for (Operador operador : listaOperadores) {
+            if(operador.getNome().equalsIgnoreCase(nome)){
+                System.out.println("Este Operador ja esta no sistema \n");
+                return;
+            }
+        }
+        String iniciais = pegaIniciais(nome.split(" "));
+        listaOperadores.add(new Operador(nome,iniciais));
+    }
+    private static String pegaIniciais(String[] nomeSemEspaco){
+        String iniciais = "";
+        for(byte count = 0; count < nomeSemEspaco.length; count++){
+            iniciais += nomeSemEspaco[count].charAt(0);
+        }
+        return iniciais;
     }
 }
