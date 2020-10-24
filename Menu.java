@@ -1,7 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu{
-
+    private static ArrayList<Operador> listaOperadores = new ArrayList<>();
     public static void menu(){
         System.out.println("Escolha uma opcao");
         System.out.println("0. Fim");
@@ -24,14 +25,14 @@ public static void main (String[] args){
     do{
         menu();
         opcao = entrada.nextInt();
-        
+        entrada.nextLine();
         switch(opcao){
         case 1: //escolheOperador();
                 
             break;
             
-        case 2: //incluirOperador();
-                
+        case 2: 
+        incluirOperador(entrada);        
             break;
         
         case 3: //registraEntrega();               
@@ -67,4 +68,26 @@ public static void main (String[] args){
         }
     } while(opcao != 0);
 }
-}}}
+    private static void incluirOperador(Scanner scanner){
+
+        System.out.println("informe o nome completo do operador: ");
+        String nome = scanner.nextLine();
+
+        for (Operador operador : listaOperadores) {
+            if(operador.getNome().equalsIgnoreCase(nome)){
+                System.out.println("Este Operador ja esta no sistema \n");
+                return;
+            }
+        }
+        String iniciais = pegaIniciais(nome.split(" "));
+        listaOperadores.add(new Operador(nome,iniciais));
+        System.out.println("Operador "+nome+" adicionado ao sistema "+ "\n");
+    }
+    private static String pegaIniciais(String[] nomeSemEspaco){
+        String iniciais = "";
+        for(byte count = 0; count < nomeSemEspaco.length; count++){
+            iniciais += nomeSemEspaco[count].charAt(0);
+        }
+        return iniciais;
+    }
+}
