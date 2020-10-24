@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Menu{
 
     private static  ArrayList<Morador> listaMoradores = new ArrayList<Morador>();
+    private static ArrayList<Operador> listaOperadores = new ArrayList<>();
     public static void menu(){
         System.out.println("Escolha uma opcao");
         System.out.println("0. Fim");
@@ -47,17 +48,17 @@ public class Menu{
         int opcao;
         Scanner entrada = new Scanner(System.in);
     
-        do{
-            menu();
-            opcao = entrada.nextInt();
-        
-            switch(opcao){
+
+    do{
+        menu();
+        opcao = entrada.nextInt();
+        entrada.nextLine();
+        switch(opcao){
             case 1: //escolheOperador();
-                    
                 break;
-                
-            case 2: //incluirOperador();
-                    
+
+            case 2: 
+                incluirOperador(entrada);        
                 break;
             
             case 3: //registraEntrega();               
@@ -89,11 +90,33 @@ public class Menu{
 
             case 9: //gerarRelatorio();
 
-                break;     
-            
-            default:
-                System.out.println("Opção inválida.");
+            break;     
+        
+        default:
+            System.out.println("Opção inválida.");
+        }
+    } while(opcao != 0);
+}
+    private static void incluirOperador(Scanner scanner){
+
+        System.out.println("informe o nome completo do operador: ");
+        String nome = scanner.nextLine();
+
+        for (Operador operador : listaOperadores) {
+            if(operador.getNome().equalsIgnoreCase(nome)){
+                System.out.println("Este Operador ja esta no sistema \n");
+                return;
             }
-        } while(opcao != 0);
+        }
+        String iniciais = pegaIniciais(nome.split(" "));
+        listaOperadores.add(new Operador(nome,iniciais));
+        System.out.println("Operador "+nome+" adicionado ao sistema "+ "\n");
+    }
+    private static String pegaIniciais(String[] nomeSemEspaco){
+        String iniciais = "";
+        for(byte count = 0; count < nomeSemEspaco.length; count++){
+            iniciais += nomeSemEspaco[count].charAt(0);
+        }
+        return iniciais;
     }
 }
