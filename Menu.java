@@ -40,8 +40,9 @@ public class Menu{
         Morador aux= new Morador(nome,rg,nroApartamento);
 
         for (Morador morador : listaMoradores) {
-            if(morador.getNome().equalsIgnoreCase(nome));
+            if(morador.getNome().equalsIgnoreCase(nome)){
             existe= true;
+            }
         }
         if(existe){
             System.out.println("Este morador ja esta no sistema \n");
