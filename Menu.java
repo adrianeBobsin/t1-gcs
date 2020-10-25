@@ -221,24 +221,23 @@ public class Menu{
         ValidaData validacaoData = new ValidaData();
 
         boolean ret;
-        Date dateI;
+        String dataInicial;
         do {
-            System.out.println("Informe a data inicial para pesquisa: ");
-            String dataInicial = scanner.nextLine();
-            dateI = new Date(dataInicial);
+            System.out.println("Informe a data inicial para pesquisa no formato dd/mm/aaaa: ");
+            dataInicial = scanner.nextLine();
             ret = validacaoData.dataValida(dataInicial);
         } while (ret == false);
+        Date dateI = new Date(dataInicial);
 
-        Date dateF;
+        String dataFinal;
         do {
-            System.out.println("Informe a data final para pesquisa: ");
-            String dataFinal = scanner.nextLine();
-            dateF = new Date(dataFinal);
+            System.out.println("Informe a data final para pesquisa no formato dd/mm/aaaa: ");
+            dataFinal = scanner.nextLine();
             ret = validacaoData.dataValida(dataFinal);
         } while(ret == false);
+        Date dateF = new Date(dataFinal);
 
         System.out.println("Entrega\t\t" + "Horário do registro\t\t" + "Descrição\t\t\t\t\t" + "Apto\t" + "Operador\t\t" + "Retirada\t\t\t\t" + "Morador");
-
         for (Entrega umaEntrega : listaEntregas) {
             String[] entrega = umaEntrega.getDataHora().split(" ");
             Date dateE = new Date(entrega[0]);
@@ -246,6 +245,23 @@ public class Menu{
                 umaEntrega.lista();
             }
         }
-    }
 
+        // == Submenu da consulta ==
+        System.out.println("\nEscolha uma opção: ");
+        System.out.println("0. Retornar ao menu");
+        System.out.println("1. Realizar nova pesquisa por data");
+        int submenu = scanner.nextInt();
+
+        switch(submenu) {
+            case 0:
+                break;
+
+            case 1:
+                gerarRelatorio();
+                break;
+
+            default:
+                break;
+        }
+    }
 }
