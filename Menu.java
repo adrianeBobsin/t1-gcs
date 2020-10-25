@@ -218,27 +218,34 @@ public class Menu{
 
     private static void gerarRelatorio() {
         Scanner scanner = new Scanner(System.in);
+        ValidaData validacaoData = new ValidaData();
 
-        System.out.println("Informe a data inicial para pesquisa: ");
-        String dataInicial = scanner.nextLine();
-        String[] inicio = dataInicial.split(" ");
-        Date date = new Date(inicio[0]);
+        boolean ret;
+        Date dateI;
+        do {
+            System.out.println("Informe a data inicial para pesquisa: ");
+            String dataInicial = scanner.nextLine();
+            dateI = new Date(dataInicial);
+            ret = validacaoData.dataValida(dataInicial);
+        } while (ret == false);
 
-        System.out.println("Informe a data final para pesquisa: ");
-        String dataFinal = scanner.nextLine();
-        String[] fim = dataFinal.split(" ");
-        Date dateF = new Date(fim[0]);
+        Date dateF;
+        do {
+            System.out.println("Informe a data final para pesquisa: ");
+            String dataFinal = scanner.nextLine();
+            dateF = new Date(dataFinal);
+            ret = validacaoData.dataValida(dataFinal);
+        } while(ret == false);
 
-        System.out.println("Entrega\t\t" +"Horário do registro\t\t"  +"Descrição\t\t\t\t\t" + "Apto\t" + "Operador\t\t" +"Retirada\t\t\t\t" + "Morador");
+        System.out.println("Entrega\t\t" + "Horário do registro\t\t" + "Descrição\t\t\t\t\t" + "Apto\t" + "Operador\t\t" + "Retirada\t\t\t\t" + "Morador");
 
-        for(Entrega umaEntrega: listaEntregas){
+        for (Entrega umaEntrega : listaEntregas) {
             String[] entrega = umaEntrega.getDataHora().split(" ");
             Date dateE = new Date(entrega[0]);
-            if (date.before(dateE) && dateF.after(dateE)) {
+            if (dateI.before(dateE) && dateF.after(dateE)) {
                 umaEntrega.lista();
             }
         }
     }
-
 
 }
