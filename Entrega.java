@@ -1,38 +1,42 @@
+import java.time.LocalDateTime;
 public class Entrega{
 
-    public String data;
-    public String hora;
+    public LocalDateTime dataHora;
     public String descricao;
     public String numeroApartamento;
     public Operador p;
     public String id;
+    public Retirada retirada;
 
     public Entrega() {
     }
 
-    public Entrega(String data, String hora, String descricao, String numeroApartamento, Operador p, String id) {
-        this.data = data;
-        this.hora = hora;
+    public Entrega(String data, String hora ,String descricao, String numeroApartamento, Operador p, String id) {
+        this.dataHora = DataETempo.getDataHora(data,hora);
         this.descricao = descricao;
         this.numeroApartamento = numeroApartamento;
         this.p = p;
         this.id = id;
+        this.retirada = null;
     }
 
-    public String getData() {
-        return this.data;
+    public Entrega(String data, String hora, String descricao, String numeroApartamento, Operador p, String id, Retirada retirada) {
+        this.dataHora = DataETempo.getDataHora(data,hora);
+        this.descricao = descricao;
+        this.numeroApartamento = numeroApartamento;
+        this.p = p;
+        this.id = id;
+        this.retirada = retirada;
     }
 
-    public void setData(String data) {
-        this.data = data;
+
+
+    public LocalDateTime getDataHora() {
+        return this.dataHora;
     }
 
-    public String getHora() {
-        return this.hora;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
+    public void setHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
     }
 
     public String getDescricao() {
@@ -67,25 +71,12 @@ public class Entrega{
         this.id = id;
     }
 
-    public void registraEntrega(String data, String hora, String descricao, String numeroApartamento, Operador p, String id){
-    //procurar para ver se ja existe, se nao, cria e adiciona
+    public Retirada getRetirada() {
+        return this.retirada;
     }
 
-    public void procuraEntregas(String descricao){
-        //procurar descricao
-        //se achar, lista
-        
-
+    public void setRetirada(Retirada retirada) {
+        this.retirada = retirada;
     }
-
-    public void listaEntregasNRetiradas(){
-        //procurar todas as entregas nao retiradas
-        //se achar, lista
-        
-
-    }
-
-
-
 
 }

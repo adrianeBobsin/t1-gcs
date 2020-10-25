@@ -3,9 +3,11 @@ import java.util.Scanner;
 
 public class Menu{
 
-    private static  ArrayList<Morador> listaMoradores = new ArrayList<Morador>();
+    private static ArrayList<Morador> listaMoradores = new ArrayList<>();
     private static ArrayList<Operador> listaOperadores = new ArrayList<>();
-    private static Operador operadorAtual = new Operador("", "");
+    private static ArrayList<Entrega> listaEntregas = new ArrayList<>();
+    private static Operador operadorAtual = new Operador("Matheus Hrymalak Souza", "MHS");
+
     public static void menu(){
         System.out.println("Escolha uma opcao");
         System.out.println("0. Fim");
@@ -46,6 +48,8 @@ public class Menu{
     }
     public static void main (String[] args){ 
         listaMoradores.add(new Morador("Seige","214646178","101"));
+        listaOperadores.add(operadorAtual);
+        listaEntregas.add(new Entrega("2007-12-03","15:47","1x Pacote 5kg","418",operadorAtual,"01"));
         int opcao;
         Scanner entrada = new Scanner(System.in);
     
@@ -63,8 +67,8 @@ public class Menu{
                 incluirOperador(entrada);        
                 break;
             
-            case 3: //registraEntrega();               
-                
+            case 3: //registraEntrega();                 
+                    
                 break;
 
             case 4: ///listaMoradores();                
@@ -75,11 +79,10 @@ public class Menu{
             
             case 5: 
                 incluiMorador(); 
-            
                 break;    
                 
-            case 6: //registraRetirada();             
-
+            case 6: 
+                registraRetirada(entrada);             
                 break;
 
             case 7: //listaEntregasNRetiradas();
@@ -95,19 +98,12 @@ public class Menu{
             break;     
         
         default:
-            System.out.println("Opção inválida.");
+            System.out.println("\fOpção inválida.");
         }
     } while(opcao != 0);
 }
     private static Operador escolherOperador(Scanner scanner){
-        String nome = "GCS";
-        do{
-            if(nome.isBlank()){
-                System.out.println("\fOperação inválido "); 
-            }
-            System.out.println("Qual o nome completo do operador desejado: ");
-            nome = scanner.nextLine();
-        }while(nome.isBlank());
+        String nome = pegaNome(scanner, "operador");
 
         if(operadorAtual.getNome().equalsIgnoreCase(nome)){
             System.out.print("Esse operador já está selecionado");
@@ -122,14 +118,7 @@ public class Menu{
         return operadorAtual;
     }
     private static void incluirOperador(Scanner scanner){
-        String nome = "GCS";
-        do{
-            if(nome.isBlank()){
-                System.out.println("\fOperação inválido "); 
-            }
-            System.out.println("Informe o nome completo do operador: ");
-            nome = scanner.nextLine();
-        }while(nome.isBlank());
+        String nome = pegaNome(scanner, "operador");
 
         for (Operador operador : listaOperadores) {
             if(operador.getNome().equalsIgnoreCase(nome)){
@@ -146,5 +135,38 @@ public class Menu{
             iniciais += nomeSemEspaco[count].charAt(0);
         }
         return iniciais;
+    }
+
+    private static String pegaNome(Scanner scanner, String queNome){
+        String nome = "GCS";
+        do{
+            if(nome.isBlank()){
+                System.out.println("\fOperação inválido "); 
+                scanner.nextLine();
+            }
+            System.out.println("Informe o nome do "+queNome+": ");
+            nome = scanner.nextLine();
+        }while(nome.isBlank());
+        return nome;
+    }
+
+    private static void registraRetirada(Scanner scanner){
+        System.out.print("Digite o ID da entrega: ");
+        String id = scanner.nextLine();
+        Entrega entregaSelecionada = null;
+        for(Entrega entrega : listaEntregas){
+           if(entrega.getId().equals(id)){
+                entregaSelecionada = entrega;
+                break;
+           }
+        }
+        if(entregaSelecionada == null){
+            System.out.println("ID inválido");
+            return;
+        }
+        String nome = pegaNome(scanner,"morador");
+        Retirada retirada = new Retirada(nome);
+        entregaSelecionada.setRetirada(retirada);
+        System.out.println("Retirada, na data: "+retirada.getData().toString());
     }
 }
