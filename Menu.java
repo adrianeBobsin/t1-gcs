@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Menu{
@@ -221,30 +222,19 @@ public class Menu{
         System.out.println("Informe a data inicial para pesquisa: ");
         String dataInicial = scanner.nextLine();
         String[] inicio = dataInicial.split(" ");
-        String[] dInicial = inicio[0].split("/");
+        Date date = new Date(inicio[0]);
 
         System.out.println("Informe a data final para pesquisa: ");
         String dataFinal = scanner.nextLine();
         String[] fim = dataFinal.split(" ");
-        String[] dFinal = fim[0].split("/");
+        Date dateF = new Date(fim[0]);
 
         System.out.println("Entrega\t\t" +"Horário do registro\t\t"  +"Descrição\t\t\t\t\t" + "Apto\t" + "Operador\t\t" +"Retirada\t\t\t\t" + "Morador");
 
         for(Entrega umaEntrega: listaEntregas){
             String[] entrega = umaEntrega.getDataHora().split(" ");
-            String[] dataEntrega = entrega[0].split("/");
-            if ( Integer.parseInt(dInicial[2]) <= Integer.parseInt(dataEntrega[2])
-                    && Integer.parseInt(dFinal[2]) >= Integer.parseInt(dataEntrega[2])
-                    || Integer.parseInt(dInicial[1]) <= Integer.parseInt(dataEntrega[1])
-                    && Integer.parseInt(dInicial[2]) <= Integer.parseInt(dataEntrega[2])
-                    && Integer.parseInt(dFinal[1]) <= Integer.parseInt(dataEntrega[1])
-                    && Integer.parseInt(dFinal[2]) <= Integer.parseInt(dataEntrega[2])
-                    || Integer.parseInt(dInicial[0]) <= Integer.parseInt(dataEntrega[0])
-                    && Integer.parseInt(dInicial[1]) == Integer.parseInt(dataEntrega[1])
-                    && Integer.parseInt(dInicial[2]) == Integer.parseInt(dataEntrega[2])
-                    && Integer.parseInt(dFinal[0]) >= Integer.parseInt(dataEntrega[0])
-                    && Integer.parseInt(dFinal[1]) == Integer.parseInt(dataEntrega[1])
-                    && Integer.parseInt(dFinal[2]) == Integer.parseInt(dataEntrega[2])) {
+            Date dateE = new Date(entrega[0]);
+            if (date.before(dateE) && dateF.after(dateE)) {
                 umaEntrega.lista();
             }
         }
