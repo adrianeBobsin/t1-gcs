@@ -3,9 +3,15 @@ import java.util.Scanner;
 
 public class Menu{
 
-    private static  ArrayList<Morador> listaMoradores = new ArrayList<Morador>();
+    private static ArrayList<Morador> listaMoradores = new ArrayList<>();
     private static ArrayList<Operador> listaOperadores = new ArrayList<>();
+    private static ArrayList<Entrega> listaEntregas = new ArrayList<>();
+    private static ArrayList<Entrega> listaEntregasNRetiradas = new ArrayList<>();
     private static Operador operadorAtual = new Operador("", "");
+    //private static Entrega e = new Entrega("dads","dasdasd","dsadas","sdasd","dasdsad",false);
+    //private static Entrega e2 = new Entrega("15/10","15:10","dsadas","18","128903",false);
+
+
     public static void menu(){
         System.out.println("Escolha uma opcao");
         System.out.println("0. Fim");
@@ -34,7 +40,7 @@ public class Menu{
         Morador aux= new Morador(nome,rg,nroApartamento);
 
         for (Morador morador : listaMoradores) {
-            if(morador.getNome().equalsIgnoreCase(nome))
+            if(morador.getNome().equalsIgnoreCase(nome));
             existe= true;
         }
         if(existe){
@@ -78,11 +84,15 @@ public class Menu{
             
                 break;    
                 
-            case 6: //registraRetirada();             
+            case 6: //registraRetirada();  
+                    //usar o metodo isRetirada()           
 
                 break;
 
-            case 7: //listaEntregasNRetiradas();
+            case 7: listaEntregasNRetiradas();
+                     for (Entrega entrega : listaEntregasNRetiradas) {
+                     entrega.lista();
+                     }
                 
                 break;    
 
@@ -147,4 +157,24 @@ public class Menu{
         }
         return iniciais;
     }
+
+
+    private static void listaEntregasNRetiradas(){
+        
+        //testando
+        //listaEntregas.add(e);
+        //e2.retirada = true;
+        //listaEntregas.add(e2);
+
+        for (Entrega entrega : listaEntregas) {
+            if(entrega.isRetirada()== false){
+            listaEntregasNRetiradas.add(entrega);
+            }
+        }
+
+
+    }
+
+
 }
+
