@@ -12,7 +12,7 @@ public class Entrega{
     public Entrega() {
     }
 
-    public Entrega(String data, String hora, String descricao, String numeroApartamento, Operador operador) {
+    public Entrega(String data, String hora, String descricao, String numeroApartamento, Operador operador, String id) {
         this.dataHora = DataETempo.getDataHora(data,hora);
         this.descricao = descricao.toLowerCase();
         this.numeroApartamento = numeroApartamento;

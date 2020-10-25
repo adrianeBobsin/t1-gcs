@@ -142,6 +142,35 @@ public class Menu{
         }
         return iniciais;
     }
+    public void registraEntrega(){
+        String id = "1";
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Digite a data de realização da entrega: ");
+        String data = scan.nextLine();
+        System.out.println("Digite a hora de realização da entrega: ");
+        String hora = scan.nextLine();
+        System.out.println("Digite a descrição da entrega: ");
+        String descricao = scan.nextLine();
+        System.out.println("Digite o numero do Apartamento de entrega: ");
+        String numeroApartamento = scan.nextLine();
+        boolean exist = false;
+        Entrega ent = new Entrega(data,hora,descricao,numeroApartamento,operadorAtual,id);
+
+        for (Entrega entrega : listaEntregasNRetiradas) {
+            if (entrega.getId().equals(id))
+                exist = true;
+        }
+        if(exist){
+            System.out.println("Já possui uma entrega com o mesmo ID");
+        }else {
+            listaEntregas.add(ent);
+            System.out.println("Entrega de número ",id"registrada com sucesso");
+        }
+
+    }
+
+
+
 
 
     private static void listaEntregasNRetiradas(){
