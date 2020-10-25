@@ -92,8 +92,8 @@ public class Menu{
                 registraRetirada(entrada);             
                 break;
 
-            case 7: listaEntregasNRetiradas();
-                
+            case 7:
+                listarEntregasNaoRetiradas();
                 break;    
 
             case 8: procuraEntregas(entrada);
@@ -172,18 +172,19 @@ public class Menu{
     }
 
 
-
-
-
-    private static void listaEntregasNRetiradas(){
-        
+    private static void listarEntregasNaoRetiradas(){
+        StringBuilder stringBuilder = new StringBuilder();
         for (Entrega entrega : listaEntregas) {
-            if(entrega.getRetirada()== null){
-            listaEntregasNRetiradas.add(entrega);
+            if(!entrega.possuiRetirada()){
+                stringBuilder.append(entrega);
             }
         }
 
-
+        if (0 < stringBuilder.length()) {
+            System.out.println(stringBuilder.toString());
+        } else {
+            System.out.println("Nenhum registro encontrado.");
+        }
     }
 
 
