@@ -6,7 +6,6 @@ public class Menu{
     private static ArrayList<Morador> listaMoradores = new ArrayList<>();
     private static ArrayList<Operador> listaOperadores = new ArrayList<>();
     private static ArrayList<Entrega> listaEntregas = new ArrayList<>();
-    private static ArrayList<Entrega> listaEntregasNRetiradas = new ArrayList<>();
     private static Operador operadorAtual = new Operador("Matheus Hrymalak", "MH");
 
 
@@ -158,9 +157,10 @@ public class Menu{
         boolean exist = false;
         Entrega ent = new Entrega(data,hora,descricao,numeroApartamento,operadorAtual);
 
-        for (Entrega entrega : listaEntregasNRetiradas) {
-            if (entrega.getId().equals(id))
+        for (Entrega entrega : listaEntregas) {
+            if (!entrega.possuiRetirada() && entrega.getId().equals(id)) {
                 exist = true;
+            }
         }
         if(exist){
             System.out.println("Já possui uma entrega com o mesmo ID");
