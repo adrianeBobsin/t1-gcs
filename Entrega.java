@@ -6,17 +6,19 @@ public class Entrega{
     public String numeroApartamento;
     public Operador p;
     public String id;
+    public boolean retirada;
 
     public Entrega() {
     }
 
-    public Entrega(String data, String hora, String descricao, String numeroApartamento, Operador p, String id) {
+    public Entrega(String data, String hora, String descricao, String numeroApartamento, Operador p, String id,boolean retirada) {
         this.data = data;
         this.hora = hora;
         this.descricao = descricao;
         this.numeroApartamento = numeroApartamento;
         this.p = p;
         this.id = id;
+        this.retirada = false;
     }
 
     public String getData() {
@@ -78,14 +80,14 @@ public class Entrega{
 
     }
 
-    public void listaEntregasNRetiradas(){
-        //procurar todas as entregas nao retiradas
-        //se achar, lista
-        
-
+    public boolean isRetirada(){
+        return retirada;
     }
 
+ 
+    public void lista(){
+        System.out.println("Data: " + data + "Hora: " + hora + " Descricao: " + descricao + " Numero Apartamento: " + numeroApartamento + " Operador: " + p.getNome() +  " Id: " + id + " Foi retirada?: " + retirada );
 
-
+    }
 
 }
