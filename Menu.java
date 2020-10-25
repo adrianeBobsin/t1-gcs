@@ -64,6 +64,9 @@ public class Menu{
         opcao = entrada.nextInt();
         entrada.nextLine();
         switch(opcao){
+            case 0:
+                System.out.println("Finalizando programa.");
+                break;
             case 1: 
                 operadorAtual = escolherOperador(entrada);
                 break;
