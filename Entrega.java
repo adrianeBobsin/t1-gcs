@@ -1,40 +1,43 @@
+import java.time.LocalDateTime;
 public class Entrega{
 
-    public String data;
-    public String hora;
+    public String dataHora;
     public String descricao;
     public String numeroApartamento;
-    public Operador p;
+    public Operador operador;
     public String id;
-    public boolean retirada;
+    public Retirada retirada;
 
+    private static int idCounter = 0;
     public Entrega() {
     }
 
-    public Entrega(String data, String hora, String descricao, String numeroApartamento, Operador p, String id,boolean retirada) {
-        this.data = data;
-        this.hora = hora;
-        this.descricao = descricao;
+    public Entrega(String data, String hora, String descricao, String numeroApartamento, Operador operador) {
+        this.dataHora = DataETempo.getDataHora(data,hora);
+        this.descricao = descricao.toLowerCase();
         this.numeroApartamento = numeroApartamento;
-        this.p = p;
-        this.id = id;
-        this.retirada = false;
+        this.operador = operador;
+        this.id = String.valueOf(idCounter++);
+        this.retirada = null;
     }
 
-    public String getData() {
-        return this.data;
+    public Entrega(String data, String hora, String descricao, String numeroApartamento, Operador operador, Retirada retirada) {
+        this.dataHora = DataETempo.getDataHora(data,hora);
+        this.descricao = descricao.toLowerCase();
+        this.numeroApartamento = numeroApartamento;
+        this.operador = operador;
+        this.id = String.valueOf(idCounter++);
+        this.retirada = retirada;
     }
 
-    public void setData(String data) {
-        this.data = data;
+
+
+    public String getDataHora() {
+        return this.dataHora;
     }
 
-    public String getHora() {
-        return this.hora;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
+    public void setHora(String dataHora) {
+        this.dataHora = dataHora;
     }
 
     public String getDescricao() {
@@ -53,12 +56,12 @@ public class Entrega{
         this.numeroApartamento = numeroApartamento;
     }
 
-    public Operador getP() {
-        return this.p;
+    public Operador getOperador() {
+        return this.operador;
     }
 
     public void setP(Operador p) {
-        this.p = p;
+        this.operador = operador;
     }
 
     public String getId() {
@@ -69,24 +72,18 @@ public class Entrega{
         this.id = id;
     }
 
-    public void registraEntrega(String data, String hora, String descricao, String numeroApartamento, Operador p, String id){
-    //procurar para ver se ja existe, se nao, cria e adiciona
+    public Retirada getRetirada() {
+        return this.retirada;
     }
 
-    public void procuraEntregas(String descricao){
-        //procurar descricao
-        //se achar, lista
-        
-
+    public void setRetirada(Retirada retirada) {
+        this.retirada = retirada;
     }
-
-    public boolean isRetirada(){
-        return retirada;
-    }
-
- 
     public void lista(){
-        System.out.println("Data: " + data + "Hora: " + hora + " Descricao: " + descricao + " Numero Apartamento: " + numeroApartamento + " Operador: " + p.getNome() +  " Id: " + id + " Foi retirada?: " + retirada );
+        if(this.retirada != null)
+            System.out.println("  "+id + "\t\t\t"+ dataHora + "\t\t" + descricao + "\t\t\t\t"  + numeroApartamento + "\t\t" +"  "+ operador.getIniciais()  + "\t\t\t" +retirada.getData() +"\t\t" + retirada.getNome());
+        else
+            System.out.println("  "+id + "\t\t\t" +dataHora + "\t\t" + descricao + "\t\t\t\t" +  numeroApartamento + "\t\t" +"  "+operador.getIniciais());
 
     }
 
