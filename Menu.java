@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Menu{
@@ -101,8 +102,8 @@ public class Menu{
 
                 break;   
 
-            case 9: //gerarRelatorio();
-
+            case 9:
+                gerarRelatorio();
             break;     
         
         default:
@@ -239,5 +240,54 @@ public class Menu{
                    umaEntrega.lista();
                 }
             }
+    }
+
+    private static void gerarRelatorio() {
+        Scanner scanner = new Scanner(System.in);
+        ValidaData validacaoData = new ValidaData();
+
+        boolean ret;
+        String dataInicial;
+        do {
+            System.out.println("Informe a data inicial para pesquisa no formato dd/mm/aaaa: ");
+            dataInicial = scanner.nextLine();
+            ret = validacaoData.dataValida(dataInicial);
+        } while (ret == false);
+        Date dateI = new Date(dataInicial);
+
+        String dataFinal;
+        do {
+            System.out.println("Informe a data final para pesquisa no formato dd/mm/aaaa: ");
+            dataFinal = scanner.nextLine();
+            ret = validacaoData.dataValida(dataFinal);
+        } while(ret == false);
+        Date dateF = new Date(dataFinal);
+
+        System.out.println("Entrega\t\t" + "Horário do registro\t\t" + "Descrição\t\t\t\t\t" + "Apto\t" + "Operador\t\t" + "Retirada\t\t\t\t" + "Morador");
+        for (Entrega umaEntrega : listaEntregas) {
+            String[] entrega = umaEntrega.getDataHora().split(" ");
+            Date dateE = new Date(entrega[0]);
+            if (dateI.before(dateE) && dateF.after(dateE)) {
+                umaEntrega.lista();
+            }
+        }
+
+        // == Submenu da consulta ==
+        System.out.println("\nEscolha uma opção: ");
+        System.out.println("0. Retornar ao menu");
+        System.out.println("1. Realizar nova pesquisa por data");
+        int submenu = scanner.nextInt();
+
+        switch(submenu) {
+            case 0:
+                break;
+
+            case 1:
+                gerarRelatorio();
+                break;
+
+            default:
+                break;
+        }
     }
 }
