@@ -8,8 +8,6 @@ public class Menu{
     private static ArrayList<Entrega> listaEntregas = new ArrayList<>();
     private static ArrayList<Entrega> listaEntregasNRetiradas = new ArrayList<>();
     private static Operador operadorAtual = new Operador("Matheus Hrymalak", "MH");
-    //private static Entrega e = new Entrega("dads","dasdasd","dsadas","sdasd","dasdsad",false);
-    //private static Entrega e2 = new Entrega("15/10","15:10","dsadas","18","128903",false);
 
 
     public static void menu(){
@@ -55,7 +53,7 @@ public class Menu{
         listaMoradores.add(new Morador("Seige","214646178","101"));
         listaMoradores.add(new Morador("Luis Felipe Moreira","3124567589","312"));
         listaOperadores.add(operadorAtual);
-        listaEntregas.add(new Entrega("2017-12-03","15:47","1x Pacote 5kg","418",operadorAtual));
+        //listaEntregas.add(new Entrega("2017-12-03","15:47","1x Pacote 5kg","418",operadorAtual, false));
         listaEntregas.add(new Entrega("2020-09-23","09:37","2x Pacote 2kg","312",operadorAtual, new Retirada("Luis Felipe Moreira")));
         int opcao;
         Scanner entrada = new Scanner(System.in);
@@ -165,7 +163,7 @@ public class Menu{
             System.out.println("Já possui uma entrega com o mesmo ID");
         }else {
             listaEntregas.add(ent);
-            System.out.println("Entrega de número ",id"registrada com sucesso");
+            System.out.println("Entrega de número " + id + "registrada com sucesso");
         }
 
     }
@@ -176,11 +174,6 @@ public class Menu{
 
     private static void listaEntregasNRetiradas(){
         
-        //testando
-        //listaEntregas.add(e);
-        //e2.retirada = true;
-        //listaEntregas.add(e2);
-
         for (Entrega entrega : listaEntregas) {
             if(entrega.getRetirada()== null){
             listaEntregasNRetiradas.add(entrega);
