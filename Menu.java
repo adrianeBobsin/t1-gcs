@@ -53,7 +53,7 @@ public class Menu{
         listaMoradores.add(new Morador("Seige","214646178","101"));
         listaMoradores.add(new Morador("Luis Felipe Moreira","3124567589","312"));
         listaOperadores.add(operadorAtual);
-        //listaEntregas.add(new Entrega("2017-12-03","15:47","1x Pacote 5kg","418",operadorAtual, false));
+        listaEntregas.add(new Entrega("2017-12-03","15:47","1x Pacote 5kg","418",operadorAtual));
         listaEntregas.add(new Entrega("2020-09-23","09:37","2x Pacote 2kg","312",operadorAtual, new Retirada("Luis Felipe Moreira")));
         int opcao;
         Scanner entrada = new Scanner(System.in);
@@ -156,7 +156,7 @@ public class Menu{
         System.out.println("Digite o numero do Apartamento de entrega: ");
         String numeroApartamento = scan.nextLine();
         boolean exist = false;
-        Entrega ent = new Entrega(data,hora,descricao,numeroApartamento,operadorAtual,id);
+        Entrega ent = new Entrega(data,hora,descricao,numeroApartamento,operadorAtual);
 
         for (Entrega entrega : listaEntregasNRetiradas) {
             if (entrega.getId().equals(id))
