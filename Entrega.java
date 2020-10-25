@@ -91,4 +91,15 @@ public class Entrega{
 
     }
 
+    @Override
+    public String toString() {
+        return "Entrega{" +
+                "dataHora='" + dataHora + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", numeroApartamento='" + numeroApartamento + '\'' +
+                ", operador=" + operador +
+                ", id='" + id + '\'' +
+                ", retirada=" + retirada +
+                '}';
+    }
 }

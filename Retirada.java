@@ -23,5 +23,11 @@ public class Retirada {
         this.data = data;
     }
 
-
+    @Override
+    public String toString() {
+        return "Retirada{" +
+                "nome='" + nome + '\'' +
+                ", data='" + data + '\'' +
+                '}';
+    }
 }
