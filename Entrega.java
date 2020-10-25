@@ -76,6 +76,10 @@ public class Entrega{
         return this.retirada;
     }
 
+    public boolean possuiRetirada() {
+        return this.retirada != null;
+    }
+
     public void setRetirada(Retirada retirada) {
         this.retirada = retirada;
     }
