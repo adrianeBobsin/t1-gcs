@@ -7,7 +7,7 @@ public class Menu{
     private static ArrayList<Operador> listaOperadores = new ArrayList<>();
     private static ArrayList<Entrega> listaEntregas = new ArrayList<>();
     private static ArrayList<Entrega> listaEntregasNRetiradas = new ArrayList<>();
-    private static Operador operadorAtual = new Operador("Matheus Hrymalak Souza", "MHS");
+    private static Operador operadorAtual = new Operador("Matheus Hrymalak", "MH");
     //private static Entrega e = new Entrega("dads","dasdasd","dsadas","sdasd","dasdsad",false);
     //private static Entrega e2 = new Entrega("15/10","15:10","dsadas","18","128903",false);
 
@@ -52,8 +52,10 @@ public class Menu{
     }
     public static void main (String[] args){ 
         listaMoradores.add(new Morador("Seige","214646178","101"));
+        listaMoradores.add(new Morador("Luis Felipe Moreira","3124567589","312"));
         listaOperadores.add(operadorAtual);
-        listaEntregas.add(new Entrega("2007-12-03","15:47","1x Pacote 5kg","418",operadorAtual));
+        listaEntregas.add(new Entrega("2017-12-03","15:47","1x Pacote 5kg","418",operadorAtual));
+        listaEntregas.add(new Entrega("2020-09-23","09:37","2x Pacote 2kg","312",operadorAtual, new Retirada("Luis Felipe Moreira")));
         int opcao;
         Scanner entrada = new Scanner(System.in);
     
@@ -75,7 +77,7 @@ public class Menu{
                     
                 break;
 
-            case 4: ///listaMoradores();                
+            case 4: ///listaMoradores();
                 for (Morador morador : listaMoradores) {
                     System.out.println(morador);
                 }
@@ -93,7 +95,7 @@ public class Menu{
                 
                 break;    
 
-            case 8: //procuraEntregas();
+            case 8: procuraEntregas(entrada);
 
                 break;   
 
@@ -107,7 +109,7 @@ public class Menu{
     } while(opcao != 0);
 }
     private static Operador escolherOperador(Scanner scanner){
-        String nome = pegaNome(scanner, "operador");
+        String nome = garanteString(scanner, "nome do operador");
 
         if(operadorAtual.getNome().equalsIgnoreCase(nome)){
             System.out.print("Esse operador já está selecionado");
@@ -122,7 +124,7 @@ public class Menu{
         return operadorAtual;
     }
     private static void incluirOperador(Scanner scanner){
-        String nome = pegaNome(scanner, "operador");
+        String nome = garanteString(scanner, "nome do operador");
 
         for (Operador operador : listaOperadores) {
             if(operador.getNome().equalsIgnoreCase(nome)){
@@ -159,14 +161,14 @@ public class Menu{
     }
 
 
-    private static String pegaNome(Scanner scanner, String queNome){
+    private static String garanteString(Scanner scanner, String queNome){
         String nome = "GCS";
         do{
             if(nome.isBlank()){
                 System.out.println("\fOperação inválido "); 
                 scanner.nextLine();
             }
-            System.out.println("Informe o nome do "+queNome+": ");
+            System.out.println("Informe o "+queNome+": ");
             nome = scanner.nextLine();
         }while(nome.isBlank());
         return nome;
@@ -186,7 +188,7 @@ public class Menu{
             System.out.println("ID inválido");
             return;
         }
-        String nome = pegaNome(scanner,"morador");
+        String nome = garanteString(scanner,"o nome do morador");
         Morador morador = null;
         for(Morador umMorador : listaMoradores){
             if(umMorador.getNome().equalsIgnoreCase(nome)){
@@ -200,6 +202,16 @@ public class Menu{
         }
         Retirada retirada = new Retirada(nome);
         entregaSelecionada.setRetirada(retirada);
-        System.out.println("Retirada, na data: "+retirada.getData().toString());
+        System.out.println("Retirada, na data: "+retirada.getData());
+    }
+
+    private static void procuraEntregas(Scanner scanner){
+            String descricao = garanteString(scanner, "o que procura");
+            System.out.println("Entrega\t\t" +"Horário do registro\t\t"  +"Descrição\t\t\t\t\t" + "Apto\t" + "Operador\t\t" +"Retirada\t\t\t\t" + "Morador");
+            for(Entrega umaEntrega: listaEntregas){
+                if(umaEntrega.getDescricao().contains(descricao.toLowerCase())){
+                   umaEntrega.lista();
+                }
+            }
     }
 }
