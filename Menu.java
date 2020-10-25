@@ -7,7 +7,6 @@ public class Menu{
     private static ArrayList<Morador> listaMoradores = new ArrayList<>();
     private static ArrayList<Operador> listaOperadores = new ArrayList<>();
     private static ArrayList<Entrega> listaEntregas = new ArrayList<>();
-    private static ArrayList<Entrega> listaEntregasNRetiradas = new ArrayList<>();
     private static Operador operadorAtual = new Operador("Matheus Hrymalak", "MH");
 
 
@@ -54,7 +53,7 @@ public class Menu{
         listaMoradores.add(new Morador("Seige","214646178","101"));
         listaMoradores.add(new Morador("Luis Felipe Moreira","3124567589","312"));
         listaOperadores.add(operadorAtual);
-        //listaEntregas.add(new Entrega("2017-12-03","15:47","1x Pacote 5kg","418",operadorAtual, false));
+        listaEntregas.add(new Entrega("2017-12-03","15:47","1x Pacote 5kg","418",operadorAtual));
         listaEntregas.add(new Entrega("2020-09-23","09:37","2x Pacote 2kg","312",operadorAtual, new Retirada("Luis Felipe Moreira")));
         int opcao;
         Scanner entrada = new Scanner(System.in);
@@ -94,8 +93,8 @@ public class Menu{
                 registraRetirada(entrada);             
                 break;
 
-            case 7: listaEntregasNRetiradas();
-                
+            case 7:
+                listarEntregasNaoRetiradas();
                 break;    
 
             case 8: procuraEntregas(entrada);
@@ -157,11 +156,12 @@ public class Menu{
         System.out.println("Digite o numero do Apartamento de entrega: ");
         String numeroApartamento = scan.nextLine();
         boolean exist = false;
-        Entrega ent = new Entrega(data,hora,descricao,numeroApartamento,operadorAtual,id);
+        Entrega ent = new Entrega(data,hora,descricao,numeroApartamento,operadorAtual);
 
-        for (Entrega entrega : listaEntregasNRetiradas) {
-            if (entrega.getId().equals(id))
+        for (Entrega entrega : listaEntregas) {
+            if (!entrega.possuiRetirada() && entrega.getId().equals(id)) {
                 exist = true;
+            }
         }
         if(exist){
             System.out.println("Já possui uma entrega com o mesmo ID");
@@ -173,18 +173,19 @@ public class Menu{
     }
 
 
-
-
-
-    private static void listaEntregasNRetiradas(){
-        
+    private static void listarEntregasNaoRetiradas(){
+        StringBuilder stringBuilder = new StringBuilder();
         for (Entrega entrega : listaEntregas) {
-            if(entrega.getRetirada()== null){
-            listaEntregasNRetiradas.add(entrega);
+            if(!entrega.possuiRetirada()){
+                stringBuilder.append(entrega);
             }
         }
 
-
+        if (0 < stringBuilder.length()) {
+            System.out.println(stringBuilder.toString());
+        } else {
+            System.out.println("Nenhum registro encontrado.");
+        }
     }
 
 

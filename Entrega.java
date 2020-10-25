@@ -12,7 +12,7 @@ public class Entrega{
     public Entrega() {
     }
 
-    public Entrega(String data, String hora, String descricao, String numeroApartamento, Operador operador, String id) {
+    public Entrega(String data, String hora, String descricao, String numeroApartamento, Operador operador) {
         this.dataHora = DataETempo.getDataHora(data,hora);
         this.descricao = descricao.toLowerCase();
         this.numeroApartamento = numeroApartamento;
@@ -76,6 +76,10 @@ public class Entrega{
         return this.retirada;
     }
 
+    public boolean possuiRetirada() {
+        return this.retirada != null;
+    }
+
     public void setRetirada(Retirada retirada) {
         this.retirada = retirada;
     }
@@ -87,4 +91,15 @@ public class Entrega{
 
     }
 
+    @Override
+    public String toString() {
+        return "Entrega{" +
+                "dataHora='" + dataHora + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", numeroApartamento='" + numeroApartamento + '\'' +
+                ", operador=" + operador +
+                ", id='" + id + '\'' +
+                ", retirada=" + retirada +
+                '}';
+    }
 }
