@@ -1,5 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 public class Menu{
@@ -39,7 +40,7 @@ public class Menu{
 
         for (Morador morador : listaMoradores) {
             if(morador.getNome().equalsIgnoreCase(nome)){
-            existe= true;
+                existe= true;
             }
         }
         if(existe){
@@ -47,69 +48,69 @@ public class Menu{
         }else {
             listaMoradores.add(aux);
             System.out.println("Morador "+nome+" adcionado ao sistema "+ "\n");
-        } 
+        }
     }
-    public static void main (String[] args){ 
+    public static void main (String[] args){
         listaMoradores.add(new Morador("Seige","214646178","101"));
         listaMoradores.add(new Morador("Luis Felipe Moreira","3124567589","312"));
         listaOperadores.add(operadorAtual);
-        listaEntregas.add(new Entrega("2017-12-03","15:47","1x Pacote 5kg","418",operadorAtual));
+        //listaEntregas.add(new Entrega("2017-12-03","15:47","1x Pacote 5kg","418",operadorAtual));
         listaEntregas.add(new Entrega("2020-09-23","09:37","2x Pacote 2kg","312",operadorAtual, new Retirada("Luis Felipe Moreira")));
         int opcao;
         Scanner entrada = new Scanner(System.in);
-    
 
-    do{
-        menu();
-        opcao = entrada.nextInt();
-        entrada.nextLine();
-        switch(opcao){
-            case 0:
-                System.out.println("Finalizando programa.");
-                break;
-            case 1: 
-                operadorAtual = escolherOperador(entrada);
-                break;
 
-            case 2: 
-                incluirOperador(entrada);        
-                break;
-            
-            case 3: //registraEntrega();                 
-                    
-                break;
+        do{
+            menu();
+            opcao = entrada.nextInt();
+            entrada.nextLine();
+            switch(opcao){
+                case 0:
+                    System.out.println("Finalizando programa.");
+                    break;
+                case 1:
+                    operadorAtual = escolherOperador(entrada);
+                    break;
 
-            case 4: ///listaMoradores();
-                for (Morador morador : listaMoradores) {
-                    System.out.println(morador);
-                }
-                break;             
-            
-            case 5: 
-                incluiMorador(); 
-                break;    
-                
-            case 6: 
-                registraRetirada(entrada);             
-                break;
+                case 2:
+                    incluirOperador(entrada);
+                    break;
 
-            case 7:
-                listarEntregasNaoRetiradas();
-                break;    
+                case 3: //registraEntrega();
 
-            case 8: procuraEntregas(entrada);
+                    break;
 
-                break;   
+                case 4: ///listaMoradores();
+                    for (Morador morador : listaMoradores) {
+                        System.out.println(morador);
+                    }
+                    break;
 
-            case 9:
-                gerarRelatorio();
-            break;     
-        
-        default:
-            System.out.println("\fOpção inválida.");
-        }
-    } while(opcao != 0);
-}
+                case 5:
+                    incluiMorador();
+                    break;
+
+                case 6:
+                    registraRetirada(entrada);
+                    break;
+
+                case 7:
+                    listarEntregasNaoRetiradas();
+                    break;
+
+                case 8: procuraEntregas(entrada);
+
+                    break;
+
+                case 9:
+                    gerarRelatorio();
+                    break;
+
+                default:
+                    System.out.println("\fOpção inválida.");
+            }
+        } while(opcao != 0);
+    }
     private static Operador escolherOperador(Scanner scanner){
         String nome = garanteString(scanner, "nome do operador");
 
@@ -193,7 +194,7 @@ public class Menu{
         String nome = "GCS";
         do{
             if(nome.isBlank()){
-                System.out.println("\fOperação inválido "); 
+                System.out.println("\fOperação inválido ");
                 scanner.nextLine();
             }
             System.out.println("Informe o "+queNome+": ");
@@ -207,10 +208,10 @@ public class Menu{
         String id = scanner.nextLine();
         Entrega entregaSelecionada = null;
         for(Entrega entrega : listaEntregas){
-           if(entrega.getId().equals(id)){
+            if(entrega.getId().equals(id)){
                 entregaSelecionada = entrega;
                 break;
-           }
+            }
         }
         if(entregaSelecionada == null){
             System.out.println("ID inválido");
@@ -234,18 +235,19 @@ public class Menu{
     }
 
     private static void procuraEntregas(Scanner scanner){
-            String descricao = garanteString(scanner, "o que procura");
-            System.out.println("Entrega\t\t" +"Horário do registro\t\t"  +"Descrição\t\t\t\t\t" + "Apto\t" + "Operador\t\t" +"Retirada\t\t\t\t" + "Morador");
-            for(Entrega umaEntrega: listaEntregas){
-                if(umaEntrega.getDescricao().contains(descricao.toLowerCase())){
-                   umaEntrega.lista();
-                }
+        String descricao = garanteString(scanner, "o que procura");
+        System.out.println("Entrega\t\t" +"Horário do registro\t\t"  +"Descrição\t\t\t\t\t" + "Apto\t" + "Operador\t\t" +"Retirada\t\t\t\t" + "Morador");
+        for(Entrega umaEntrega: listaEntregas){
+            if(umaEntrega.getDescricao().contains(descricao.toLowerCase())){
+                umaEntrega.lista();
             }
+        }
     }
 
     private static void gerarRelatorio() {
         Scanner scanner = new Scanner(System.in);
         ValidaData validacaoData = new ValidaData();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         boolean ret;
         String dataInicial;
@@ -254,7 +256,7 @@ public class Menu{
             dataInicial = scanner.nextLine();
             ret = validacaoData.dataValida(dataInicial);
         } while (ret == false);
-        Date dateI = new Date(dataInicial);
+        LocalDate dI = LocalDate.parse(dataInicial, formatter);
 
         String dataFinal;
         do {
@@ -262,13 +264,13 @@ public class Menu{
             dataFinal = scanner.nextLine();
             ret = validacaoData.dataValida(dataFinal);
         } while(ret == false);
-        Date dateF = new Date(dataFinal);
+        LocalDate dF = LocalDate.parse(dataFinal, formatter);
 
         System.out.println("Entrega\t\t" + "Horário do registro\t\t" + "Descrição\t\t\t\t\t" + "Apto\t" + "Operador\t\t" + "Retirada\t\t\t\t" + "Morador");
         for (Entrega umaEntrega : listaEntregas) {
             String[] entrega = umaEntrega.getDataHora().split(" ");
-            Date dateE = new Date(entrega[0]);
-            if (dateI.before(dateE) && dateF.after(dateE)) {
+            LocalDate dataEntrega = LocalDate.parse(entrega[0], formatter);
+            if (dI.isBefore(dataEntrega) && dF.isAfter(dataEntrega)) {
                 umaEntrega.lista();
             }
         }
