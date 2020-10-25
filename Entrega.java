@@ -3,15 +3,15 @@ public class Entrega{
     public String data;
     public String hora;
     public String descricao;
-    public String numeroApartamento;
+    public int numeroApartamento;
     public Operador p;
-    public String id;
+    public int id;
     public boolean retirada;
 
     public Entrega() {
     }
 
-    public Entrega(String data, String hora, String descricao, String numeroApartamento, Operador p, String id,boolean retirada) {
+    public Entrega(String data, String hora, String descricao, int numeroApartamento, Operador p, int id,boolean retirada) {
         this.data = data;
         this.hora = hora;
         this.descricao = descricao;
@@ -45,11 +45,11 @@ public class Entrega{
         this.descricao = descricao;
     }
 
-    public String getnumeroApartamento() {
+    public int getnumeroApartamento() {
         return this.numeroApartamento;
     }
 
-    public void setnumeroApartamento(String numeroApartamento) {
+    public void setnumeroApartamento(int numeroApartamento) {
         this.numeroApartamento = numeroApartamento;
     }
 
@@ -61,15 +61,15 @@ public class Entrega{
         this.p = p;
     }
 
-    public String getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public void registraEntrega(String data, String hora, String descricao, String numeroApartamento, Operador p, String id){
+    public void registraEntrega(String data, String hora, String descricao, int numeroApartamento, Operador p, int id){
     //procurar para ver se ja existe, se nao, cria e adiciona
     }
 
