@@ -69,6 +69,9 @@ public class Menu{
                     System.out.println("Finalizando programa.");
                     break;
                 case 1:
+                    for (Operador op : listaOperadores) {
+                        System.out.println(op);
+                    }
                     operadorAtual = escolherOperador(entrada);
                     break;
 
