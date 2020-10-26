@@ -45,4 +45,12 @@ public class Operador{
         //gera o relatorio de todas as entregas, inclusive as que nao foram retiradas
     //}
 
+
+    @Override
+    public String toString() {
+        return "Operador{" +
+                "nome='" + nome + '\'' +
+                ", iniciais='" + iniciais + '\'' +
+                '}';
+    }
 }
