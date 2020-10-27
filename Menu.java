@@ -50,6 +50,7 @@ public class Menu{
             System.out.println("Morador "+nome+" adcionado ao sistema "+ "\n");
         }
     }
+
     public static void main (String[] args){
         listaMoradores.add(new Morador("Seige","214646178","101"));
         listaMoradores.add(new Morador("Luis Felipe Moreira","3124567589","312"));
@@ -68,6 +69,7 @@ public class Menu{
                 case 0:
                     System.out.println("Finalizando programa.");
                     break;
+
                 case 1:
                     for (Operador op : listaOperadores) {
                         System.out.println(op);
@@ -79,11 +81,11 @@ public class Menu{
                     incluirOperador(entrada);
                     break;
 
-                case 3: //registraEntrega();
-
+                case 3:
+                    registraEntrega();
                     break;
 
-                case 4: ///listaMoradores();
+                case 4:
                     for (Morador morador : listaMoradores) {
                         System.out.println(morador);
                     }
@@ -114,6 +116,7 @@ public class Menu{
             }
         } while(opcao != 0);
     }
+
     private static Operador escolherOperador(Scanner scanner){
         String nome = garanteString(scanner, "nome do operador");
 
@@ -129,6 +132,7 @@ public class Menu{
         System.out.println("Este Operador não encontrado");
         return operadorAtual;
     }
+
     private static void incluirOperador(Scanner scanner){
         String nome = garanteString(scanner, "nome do operador");
 
@@ -141,6 +145,7 @@ public class Menu{
         String iniciais = pegaIniciais(nome.split(" "));
         listaOperadores.add(new Operador(nome, iniciais));
     }
+
     private static String pegaIniciais(String[] nomeSemEspaco){
         String iniciais = "";
         for(byte count = 0; count < nomeSemEspaco.length; count++){
@@ -148,7 +153,8 @@ public class Menu{
         }
         return iniciais;
     }
-    public void registraEntrega(){
+
+    public static void registraEntrega(){
         String id = "1";
         Scanner scan = new Scanner(System.in);
         System.out.println("Digite a data de realização da entrega: ");
