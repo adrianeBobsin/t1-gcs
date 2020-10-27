@@ -55,8 +55,8 @@ public class Menu{
         listaMoradores.add(new Morador("Seige","214646178","101"));
         listaMoradores.add(new Morador("Luis Felipe Moreira","3124567589","312"));
         listaOperadores.add(operadorAtual);
-        //listaEntregas.add(new Entrega("2017-12-03","15:47","1x Pacote 5kg","418",operadorAtual));
-        listaEntregas.add(new Entrega("2020-09-23","09:37","2x Pacote 2kg","312",operadorAtual, new Retirada("Luis Felipe Moreira")));
+        listaEntregas.add(new Entrega("03/12/2017","15:47","1x Pacote 5kg","418",operadorAtual));
+        listaEntregas.add(new Entrega("23/09/2020","09:37","2x Pacote 2kg","312",operadorAtual, new Retirada("Luis Felipe Moreira")));
         int opcao;
         Scanner entrada = new Scanner(System.in);
 
@@ -157,9 +157,9 @@ public class Menu{
     public static void registraEntrega(){
         String id = "1";
         Scanner scan = new Scanner(System.in);
-        System.out.println("Digite a data de realização da entrega: ");
+        System.out.println("Digite a data de realização da entrega no formato dd/mm/aaaa: ");
         String data = scan.nextLine();
-        System.out.println("Digite a hora de realização da entrega: ");
+        System.out.println("Digite a hora de realização da entrega no formato hh:mm: ");
         String hora = scan.nextLine();
         System.out.println("Digite a descrição da entrega: ");
         String descricao = scan.nextLine();

@@ -5,7 +5,7 @@ public class DataETempo {
     
     public static String getDataHora(String data, String hora){
 
-        LocalDateTime dataHora = LocalDateTime.parse(data+"T"+hora);
+        LocalDateTime dataHora = LocalDateTime.parse(data + " " + hora, formatter);
         return dataHora.format(formatter);
     }
     
