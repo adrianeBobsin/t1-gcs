@@ -50,12 +50,13 @@ public class Menu{
             System.out.println("Morador "+nome+" adcionado ao sistema "+ "\n");
         }
     }
+
     public static void main (String[] args){
         listaMoradores.add(new Morador("Seige","214646178","101"));
         listaMoradores.add(new Morador("Luis Felipe Moreira","3124567589","312"));
         listaOperadores.add(operadorAtual);
-        //listaEntregas.add(new Entrega("2017-12-03","15:47","1x Pacote 5kg","418",operadorAtual));
-        listaEntregas.add(new Entrega("2020-09-23","09:37","2x Pacote 2kg","312",operadorAtual, new Retirada("Luis Felipe Moreira")));
+        listaEntregas.add(new Entrega("03/12/2017","15:47","1x Pacote 5kg","418",operadorAtual));
+        listaEntregas.add(new Entrega("23/09/2020","09:37","2x Pacote 2kg","312",operadorAtual, new Retirada("Luis Felipe Moreira")));
         int opcao;
         Scanner entrada = new Scanner(System.in);
 
@@ -68,6 +69,7 @@ public class Menu{
                 case 0:
                     System.out.println("Finalizando programa.");
                     break;
+
                 case 1:
                     for (Operador op : listaOperadores) {
                         System.out.println(op);
@@ -79,11 +81,11 @@ public class Menu{
                     incluirOperador(entrada);
                     break;
 
-                case 3: //registraEntrega();
-
+                case 3:
+                    registraEntrega();
                     break;
 
-                case 4: ///listaMoradores();
+                case 4:
                     for (Morador morador : listaMoradores) {
                         System.out.println(morador);
                     }
@@ -114,6 +116,7 @@ public class Menu{
             }
         } while(opcao != 0);
     }
+
     private static Operador escolherOperador(Scanner scanner){
         String nome = garanteString(scanner, "nome do operador");
 
@@ -129,6 +132,7 @@ public class Menu{
         System.out.println("Este Operador não encontrado");
         return operadorAtual;
     }
+
     private static void incluirOperador(Scanner scanner){
         String nome = garanteString(scanner, "nome do operador");
 
@@ -141,6 +145,7 @@ public class Menu{
         String iniciais = pegaIniciais(nome.split(" "));
         listaOperadores.add(new Operador(nome, iniciais));
     }
+
     private static String pegaIniciais(String[] nomeSemEspaco){
         String iniciais = "";
         for(byte count = 0; count < nomeSemEspaco.length; count++){
@@ -148,12 +153,13 @@ public class Menu{
         }
         return iniciais;
     }
-    public void registraEntrega(){
+
+    public static void registraEntrega(){
         String id = "1";
         Scanner scan = new Scanner(System.in);
-        System.out.println("Digite a data de realização da entrega: ");
+        System.out.println("Digite a data de realização da entrega no formato dd/mm/aaaa: ");
         String data = scan.nextLine();
-        System.out.println("Digite a hora de realização da entrega: ");
+        System.out.println("Digite a hora de realização da entrega no formato hh:mm: ");
         String hora = scan.nextLine();
         System.out.println("Digite a descrição da entrega: ");
         String descricao = scan.nextLine();
@@ -273,7 +279,7 @@ public class Menu{
         for (Entrega umaEntrega : listaEntregas) {
             String[] entrega = umaEntrega.getDataHora().split(" ");
             LocalDate dataEntrega = LocalDate.parse(entrega[0], formatter);
-            if (dI.isBefore(dataEntrega) && dF.isAfter(dataEntrega)) {
+            if ((dI.isEqual(dataEntrega) || dI.isBefore(dataEntrega) && (dF.isEqual(dataEntrega) || dF.isAfter(dataEntrega)))) {
                 umaEntrega.lista();
             }
         }
