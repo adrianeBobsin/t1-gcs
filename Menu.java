@@ -279,7 +279,7 @@ public class Menu{
         for (Entrega umaEntrega : listaEntregas) {
             String[] entrega = umaEntrega.getDataHora().split(" ");
             LocalDate dataEntrega = LocalDate.parse(entrega[0], formatter);
-            if (dI.isBefore(dataEntrega) && dF.isAfter(dataEntrega)) {
+            if ((dI.isEqual(dataEntrega) || dI.isBefore(dataEntrega) && (dF.isEqual(dataEntrega) || dF.isAfter(dataEntrega)))) {
                 umaEntrega.lista();
             }
         }
